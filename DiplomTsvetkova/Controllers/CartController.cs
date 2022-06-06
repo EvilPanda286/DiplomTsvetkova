@@ -26,23 +26,16 @@ namespace DiplomTsvetkova.Controllers
 
         public async Task<IActionResult> CartList()
         {
-           // var ss = db.ProductStorages.GroupBy(ps => ps.StorageId).Select(k=>k.Key).Count();
+            var storagesFromDb = db.Storages.Include(s => s.Products.Where(s => _productService.Products.Contains(s))).ToList();
 
-            //var res = db.ProductStorages.Include(p=>p.Product).Include(prop=>prop.Storage).Where(ps=> _productService.Products.Contains(ps.Product)).ToList().GroupBy(ps => ps.StorageId).Select(g => new {StorageName = g.Key, Count = g.Select(s=>s) });
+            var storagesSorted = storagesFromDb.OrderBy(s => s.Products.Count).ToList();
 
-            //var ress = db.ProductStorages.Where(ps => _productService.Products.Contains(ps.Product)).ToList().GroupBy(ps => ps.StorageId).Count();
+            var storages = storagesSorted.Where(s => s.Products.Count == storagesSorted.Last().Products.Count).ToList();
 
-            //var xy = db.ProductStorages.Where(s => _productService.Products.Contains(s.Product)).Select(s=> s.Storage).ToList();
-
-            //var xxy = xy.GroupBy(ps => ps.Id).Select(g => new { StorageName = g.Key, Count = g, Data= g.Select(p=>p) });
-
-            var rr1 = db.Storages.Include(s => s.Products).Select(s => s.Products.Where(p => _productService.Products.Contains(p))).ToList();
-
-            var r2r = db.Products.Include(s => s.Storages).Select(s => _productService.Products.Contains(p)).ToList();
-
+            var storage = storages.OrderBy(s => (s.Latitude + s.Longitude)).Last();
             
             
-            return View();
+            return View(storage);
         }
 
     }

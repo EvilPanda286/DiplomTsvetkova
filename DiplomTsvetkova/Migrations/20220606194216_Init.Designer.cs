@@ -3,66 +3,66 @@ using System;
 using DiplomTsvetkova;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace DiplomTsvetkova.Migrations
 {
     [DbContext(typeof(DiplomTsvetkovaContext))]
-    [Migration("20220606191736_Number666")]
-    partial class Number666
+    [Migration("20220606194216_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.5")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("DiplomTsvetkova.Models.Client", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<double>("Latitude")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<double>("Longitude")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("NumberPhone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Patronymic")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -73,16 +73,16 @@ namespace DiplomTsvetkova.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("ClientId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("ProductStorageId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Quatity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -97,18 +97,18 @@ namespace DiplomTsvetkova.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -156,16 +156,16 @@ namespace DiplomTsvetkova.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("StorageId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -178,63 +178,63 @@ namespace DiplomTsvetkova.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f03243da-5609-4beb-98aa-730c1d4f66e4"),
+                            Id = new Guid("698857d4-21e3-42f0-a744-a772d415b2e8"),
                             ProductId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e81"),
                             Quantity = 100,
                             StorageId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e11")
                         },
                         new
                         {
-                            Id = new Guid("a87ee831-7d8b-476f-b1e8-2da57ff05fba"),
+                            Id = new Guid("e1e10b2a-a35d-4339-bd0d-673336e7a4a1"),
                             ProductId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e82"),
                             Quantity = 100,
                             StorageId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e13")
                         },
                         new
                         {
-                            Id = new Guid("bc35d3c5-42b3-498e-83a5-79c900e575c7"),
+                            Id = new Guid("5684de6b-e6b3-48ad-92fc-cd797fb43a08"),
                             ProductId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e82"),
                             Quantity = 100,
                             StorageId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e12")
                         },
                         new
                         {
-                            Id = new Guid("c5745ae3-58fd-4aeb-813c-3883a740b6d0"),
+                            Id = new Guid("0dc8f6f5-6ad7-4e9a-abe8-fa91a816da3d"),
                             ProductId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e83"),
                             Quantity = 100,
                             StorageId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e12")
                         },
                         new
                         {
-                            Id = new Guid("256b0c54-73aa-4c8d-80af-6ec378e66bf9"),
+                            Id = new Guid("b0f01730-f221-410e-a513-5762ee5061c5"),
                             ProductId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e84"),
                             Quantity = 100,
                             StorageId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e13")
                         },
                         new
                         {
-                            Id = new Guid("ab9031f3-8a4d-45c5-ad94-313e21b8606b"),
+                            Id = new Guid("473aa405-5dd8-44cb-9176-23d3790f5f76"),
                             ProductId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e81"),
                             Quantity = 100,
                             StorageId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e13")
                         },
                         new
                         {
-                            Id = new Guid("2e174abb-b309-48c7-9164-0887fdc21ee3"),
+                            Id = new Guid("8dfd89bb-307f-40b7-80a2-ac38dcb11894"),
                             ProductId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e85"),
                             Quantity = 100,
                             StorageId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e12")
                         },
                         new
                         {
-                            Id = new Guid("0cd515d3-a863-40d0-97dc-50fe419d6384"),
+                            Id = new Guid("dd0eab9e-494f-4fda-8385-ab9adc00e7a0"),
                             ProductId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e85"),
                             Quantity = 100,
                             StorageId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e11")
                         },
                         new
                         {
-                            Id = new Guid("269dd2ac-fdb6-4482-8231-73b01c219b1c"),
+                            Id = new Guid("d0a312f6-ee5f-456c-8b6a-ebd16fadc167"),
                             ProductId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e81"),
                             Quantity = 100,
                             StorageId = new Guid("774ae5ac-ca59-49f2-8c07-c36dd7826e12")
@@ -245,21 +245,21 @@ namespace DiplomTsvetkova.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<double>("Latitude")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<double>("Longitude")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
