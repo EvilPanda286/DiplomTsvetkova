@@ -4,22 +4,22 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1> Магазин Peach</h1>
+    <p>Список товаров</a>.</p>
 </div>
 <div style="display:flex; flex-direction:row; flex-wrap:wrap;">
     @foreach (var product in Model)
     {
-        <div class="card" style="width: 18rem; margin-right:20px; margin-bottom:20px; box-shadow: 12px 12px 2px 1px gray;">
+        <div class="card" style="width: 12rem; margin-right:20px; margin-bottom:20px; box-shadow: 12px 12px 2px 1px gray;">
             <img class="card-img-top" src="~/images/@product.Image" />
             <h5 class="card-title">
-                Наименование: @product.Name
+                Наименование: @product.Name<br>
                 Цена: @product.Price$
             </h5>
-            <p class="card-text">Бананы лучшее средство от гемороя! Мажу каждый день! И не жалуюсь! Аминь брацы!</p>
-            @Html.ActionLink("GOVNO", "AddToCart", product)
+           
+            @Html.ActionLink("Добавить в корзину", "AddToCart", product)
         @*    <button class="btn btn-primary" onclick="">Купить</button>*@
         </div>
     }
-                @Html.ActionLink("GOVNO", "CartList", "Cart")
+                @Html.ActionLink("......", "CartList", "Cart")
 </div>

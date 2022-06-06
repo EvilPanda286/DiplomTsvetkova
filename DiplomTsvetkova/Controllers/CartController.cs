@@ -40,7 +40,7 @@ namespace DiplomTsvetkova.Controllers
                 .OrderBy(s => s.Latitude + s.Longitude)
                 .Last();
             
-            return View(storage);
+            return View();
         }
 
     }
