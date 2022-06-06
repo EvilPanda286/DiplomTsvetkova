@@ -32,7 +32,6 @@ namespace DiplomTsvetkova.Controllers
                 .OrderBy(s => s.Products.Count)
                 .ToList();
 
-          
 
             var storages = storagesFromDb.Where(s => s.Products.Count == storagesFromDb.Last().Products.Count).ToList();
 
