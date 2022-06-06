@@ -35,10 +35,17 @@ namespace DiplomTsvetkova.Controllers
 
             var storages = storagesFromDb.Where(s => s.Products.Count == storagesFromDb.Last().Products.Count).ToList();
 
-            var storage = storages.OrderBy(s => (s.Latitude + s.Longitude)).Last();
+            //var xy = db.ProductStorages.Where(s => _productService.Products.Contains(s.Product)).Select(s=> s.Storage).ToList();
+
+            //var xxy = xy.GroupBy(ps => ps.Id).Select(g => new { StorageName = g.Key, Count = g, Data= g.Select(p=>p) });
+
+            var rr1 = db.Storages.Include(s => s.Products).Select(s => s.Products.Where(p => _productService.Products.Contains(p))).ToList();
+
+           // var r2r = db.Products.Include(s => s.Storages).Select(s => _productService.Products.Contains(p)).ToList();
+
             
             
-            return View(storage);
+            return View();
         }
 
     }
