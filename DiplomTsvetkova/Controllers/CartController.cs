@@ -29,18 +29,19 @@ namespace DiplomTsvetkova.Controllers
             var storagesFromDb = db.Storages
                 .Include(s => s.Products
                 .Where(s => _productService.Products.Contains(s)))
-                .OrderBy(s => s.Products.Count)
                 .ToList();
 
-            var storages = storagesFromDb
-                .Where(s => s.Products.Count == storagesFromDb.Last().Products.Count)
+            var storagesSorted = storagesFromDb.OrderBy(s => s.Products.Count);
+
+            var storages = storagesSorted
+                .Where(s => s.Products.Count == storagesSorted.Last().Products.Count)
                 .ToList();
 
             var storage = storages
                 .OrderBy(s => s.Latitude + s.Longitude)
                 .Last();
-            
-            return View();
+
+            return View(storage);
         }
 
     }
