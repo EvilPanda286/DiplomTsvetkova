@@ -33,14 +33,17 @@ namespace DiplomTsvetkova.Controllers
             {
                 var storage = GetCoolStorage(productsService);
                 var tmp = new List<Product>(productsService);
+                var productsForStorage = new List<Product>();
 
                 foreach (var product in tmp)
                 {
                     if (storage.Products.Any(p => p.Id == product.Id))
                     {
                         productsService.Remove(product);
+                        productsForStorage.Add(product);
                     }
                 }
+                storage.Products = productsForStorage;
                 coolStorages.Add(storage);
 
             }
