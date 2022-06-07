@@ -10,11 +10,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
 builder.Services.AddSingleton<IProductService, ProductService>();
 // получаем строку подключения из файла конфигурации
-string connection = builder.Configuration.GetConnectionString("AntoConnection");
+//string connection = builder.Configuration.GetConnectionString("AntoConnection");
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // добавляем контекст ApplicationContext в качестве сервиса в приложение
-//builder.Services.AddDbContext<DiplomTsvetkovaContext>(options => options.UseSqlServer(connection));
-builder.Services.AddDbContext<DiplomTsvetkovaContext>(options => options.UseNpgsql(connection));
+builder.Services.AddDbContext<DiplomTsvetkovaContext>(options => options.UseSqlServer(connection));
+//builder.Services.AddDbContext<DiplomTsvetkovaContext>(options => options.UseNpgsql(connection));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

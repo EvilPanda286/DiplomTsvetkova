@@ -69,9 +69,20 @@ namespace DiplomTsvetkova.Controllers
                 .Where(s => s.Products.Count == storagesSorted.Last().Products.Count)
                 .ToList();
 
+            var user = db.Clients.First(u => u.UserName == _authenticationService.UserName);
+
             var storage = storages
-                .OrderBy(s => s.Latitude + s.Longitude)
-                .Last();
+                .OrderBy(s => Math.Sqrt(Math.Pow(user.Latitude - s.Latitude, 2) + Math.Pow(user.Longitude - s.Longitude, 2)))
+                .First();
+
+            var noproduct = _productService.Products.Select(n=>storage.Products.Where(m=>m.Id !=n.Id)).ToList();
+
+             var storage2 = storages
+                .OrderBy(s => Math.Sqrt(Math.Pow(user.Latitude - s.Latitude, 2) + Math.Pow(user.Longitude - s.Longitude, 2)))
+                .First();
+
+
+            storage.Products = _productService.Products;
 
             return storage;
         }
