@@ -1,9 +1,21 @@
-﻿@model Storage
+﻿@model List<Storage>
 <div>
-    <div>
-
-    </div>
-    <h2>
-        @Model.Name
-    </h2>
+    
+    @foreach (var storage in Model)
+    {
+        <h1>
+            @storage.Name
+        </h1>
+        <div>
+            <div>
+                @foreach (var product in storage.Products)
+                {
+                    <div>
+                        @product.Name
+                        
+                    </div>
+                }
+            </div>
+        </div>
+    }
 </div>
