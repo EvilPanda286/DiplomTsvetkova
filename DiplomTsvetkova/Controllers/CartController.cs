@@ -44,12 +44,40 @@ namespace DiplomTsvetkova.Controllers
                     }
                 }
                 storage.Products = productsForStorage;
+                var PS = storage.ProductStorages.Where(x => productsForStorage.Contains(x.Product));
+                storage.ProductStorages = new List<ProductStorage>(PS);
+
                 coolStorages.Add(storage);
 
             }
 
             return View(coolStorages);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CartList(List<Storage> storages)
+        {
+            var orders = new List<Order>();
+            foreach(var storage in storages)
+            {
+                foreach (var pr in storage.ProductStorages)
+                {
+                    var order = new Order()
+                    {
+                        Client = db.Clients.First(c => c.UserName == _authenticationService.UserName),
+                        Quatity = 1,
+                        ProductStorage = pr
+                    };
+                    orders.Add(order);
+                }
+                
+            }
+            await db.Orders.AddRangeAsync(orders);
+            await db.SaveChangesAsync();
+
+            return View(orders);
+        }
+
 
         private Storage GetCoolStorage(List<Product> products)
         {
@@ -78,7 +106,5 @@ namespace DiplomTsvetkova.Controllers
 
             return storage;
         }
-
-
     }
 }
