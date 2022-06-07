@@ -1,24 +1,25 @@
 ﻿@model List<Storage>
-<div>
-    
-    @foreach (var storage in Model)
-    {
-        <h1>
-            @storage.Name
-        </h1>
-        <div>
+<form method="post" data="@Model">
+    <div>
+
+        @foreach (var storage in Model)
+        {
+            <h1>
+                @storage.Name
+            </h1>
             <div>
-                @foreach (var product in storage.Products)
-                {
-                    <div>
-                        @product.Name
-                        
-                    </div>
-                }
+                <div>
+                    @foreach (var product in storage.Products)
+                    {
+                        <div>
+                            @product.Name
+
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 
 
 
@@ -26,4 +27,11 @@
 
 
 
-<button formaction="/Cart/CartList">SAVE MOTHER FAKA</button>
+
+
+
+
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+</form>
