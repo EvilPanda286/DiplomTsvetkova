@@ -26,10 +26,42 @@ namespace DiplomTsvetkova.Controllers
 
         public async Task<IActionResult> CartList()
         {
-            var storagesFromDb = db.Storages
-                .Include(s => s.Products
-                .Where(s => _productService.Products.Contains(s)))
-                .ToList();
+            var productsService = _productService.Products;
+            List<Storage> coolStorages = new();
+
+            while (productsService.Count != 0)
+            {
+                var storage = GetCoolStorage(productsService);
+                var tmp = new List<Product>(productsService);
+
+                foreach (var product in tmp)
+                {
+                    if (storage.Products.Any(p => p.Id == product.Id))
+                    {
+                        productsService.Remove(product);
+                    }
+                }
+                coolStorages.Add(storage);
+
+            }
+
+            return View(coolStorages);
+        }
+
+        private Storage GetCoolStorage(List<Product> products)
+        {
+            List<Storage> storagesFromDb = new();
+
+            foreach (var p in products)
+            {
+                var st = db.Storages.Where(s => s.Products.Contains(p))
+              .Include(s=>s.Products)
+              .ToList();
+
+                storagesFromDb.AddRange(st);
+            }
+
+            storagesFromDb.GroupBy(x => x.Id).Select(x => x.First()).ToList();
 
             var storagesSorted = storagesFromDb.OrderBy(s => s.Products.Count);
 
@@ -41,8 +73,9 @@ namespace DiplomTsvetkova.Controllers
                 .OrderBy(s => s.Latitude + s.Longitude)
                 .Last();
 
-            return View(storage);
+            return storage;
         }
+
 
     }
 }
